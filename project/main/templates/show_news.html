@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All News</title>
+    <style>
+        h1 {
+            text-align: center;
+            color: black;
+        }
+        .block-settings-1 {
+            display: flex;
+            margin-left: 100px;
+            margin-right: 100px;
+            border-radius: 15px;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .block-settings-2 {
+            background-color:blanchedalmond;
+            color: black;
+            width: 250px;
+            height: 250px;
+        }
+        .block-settings-2:hover {
+            background-color:aquamarine;   
+        }
+    </style>
+</head>
+<body>
+    <h1>All news page</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <select name="news_count">
+            <option value='5'>5</option>
+            <option value='10'>10</option>
+            <option value='15'>15</option>
+        </select> <a href={% url 'add_new' %} style="margin-left:100px;">Добавить Новость</a>
+        <br><button type="submit">Submit</button>
+    </form><br><br><br>
+    <div class="block-settings-1">
+        {% for new in all_news %}
+            <div class="block-settings-2">
+                <i style="text-decoration:underline; text-align:center;
+                color:black;">{{new.title}}</i>
+                <strong>{{new.body}}</strong>
+                <a href={% url 'new_page' new.pk %} style="text-align:end; display:flex;
+                flex-direction:row; justify-content:flex-start; position:relative; top:20px;">Читать</a>
+                <a href={% url 'edit_page' new.pk %} style="text-align:end; display:flex;
+                flex-direction:row; justify-content:flex-start; position:relative; top:20px;">Изменить</a>
+                <a href={% url 'delete_new' new.pk %} style="text-align:end; display:flex;
+                flex-direction:row; justify-content:flex-start; position:relative; top:20px;">Удалить</a>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
